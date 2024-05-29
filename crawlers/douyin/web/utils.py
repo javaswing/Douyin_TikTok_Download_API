@@ -147,7 +147,7 @@ class TokenManager:
             except APIError as e:
                 # 返回虚假的msToken (Return a fake msToken)
                 logger.error("msToken API错误：{0}".format(e))
-                logger.info("生成虚假的msToken")
+                logger.info("douyin 生成虚假的msToken")
                 return cls.gen_false_msToken()
 
     @classmethod

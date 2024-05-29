@@ -1,6 +1,5 @@
 # Use the official Ubuntu base image
 FROM ubuntu:jammy
-LABEL maintainer="Evil0ctal"
 
 # Set non-interactive frontend (useful for Docker builds)
 ENV DEBIAN_FRONTEND=noninteractive
@@ -21,20 +20,10 @@ COPY . /app
 
 # Install virtualenv
 RUN pip3 install -i https://mirrors.aliyun.com/pypi/simple/ -U pip \
-    && pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple/ \
-    && pip3 install virtualenv
-
-# Check virtualenv is installed
-RUN which virtualenv
-
-# Create and activate virtual environment using the virtualenv command
-RUN virtualenv venv -p python3.11
-
-# Set the virtual environment path
-ENV PATH="/app/venv/bin:$PATH"
+    && pip3 config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 
 # Install dependencies in the virtual environment
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # Make the start script executable
 RUN chmod +x start.sh
